@@ -1,152 +1,48 @@
-//   document.addEventListener('DOMContentLoaded', function() {
-//             // Mobile menu toggle
-//             const menuToggle = document.querySelector('.menu-toggle');
-//             const navMenu = document.querySelector('.nav-menu');
-//             menuToggle.addEventListener('click', function() {
-//                 menuToggle.classList.toggle('active');
-//                 navMenu.classList.toggle('active');
-//             });
-//             // Close menu when clicking a link
-//             document.querySelectorAll('.nav-item').forEach(link => {
-//                 link.addEventListener('click', () => {
-//                     menuToggle.classList.remove('active');
-//                     navMenu.classList.remove('active');
-//                 });
-//             });
-//             // FAQ toggle functionality
-//             const faqItems = document.querySelectorAll('.faq-item');
-//             faqItems.forEach(item => {
-//                 item.addEventListener('click', () => {
-//                     item.classList.toggle('active');
-//                 });
-//             });
-//             // Testimonial auto-scroll
-//             const testimonialsContainer = document.getElementById('testimonialsContainer');
-//             let scrollAmount = 0;
-//             let scrollInterval;
-//             function startAutoScroll() {
-//                 scrollInterval = setInterval(() => {
-//                     testimonialsContainer.scrollLeft += 1;
-//                     if (testimonialsContainer.scrollLeft >= testimonialsContainer.scrollWidth / 2) {
-//                         testimonialsContainer.scrollLeft = 0;
-//                     }
-//                 }, 30);
-//             }
-//             function stopAutoScroll() {
-//                 clearInterval(scrollInterval);
-//             }
-//             // Start auto-scroll initially
-//             startAutoScroll();
-//             // Stop auto-scroll on hover
-//             testimonialsContainer.addEventListener('mouseenter', stopAutoScroll);
-//             testimonialsContainer.addEventListener('mouseleave', startAutoScroll);
-//             // Play button functionality
-//             const playButton = document.querySelector('.play-button');
-//             if (playButton) {
-//                 playButton.addEventListener('click', () => {
-//                     alert('Video playback would start here in a real implementation!');
-//                 });
-//             }
-//             // Smooth scrolling for anchor links
-//             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-//                 anchor.addEventListener('click', function(e) {
-//                     e.preventDefault();
-//                     const target = document.querySelector(this.getAttribute('href'));
-//                     if (target) {
-//                         window.scrollTo({
-//                             top: target.offsetTop - 80,
-//                             behavior: 'smooth'
-//                         });
-//                     }
-//                 });
-//             });
-//         });
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle (kept as-is, though note: your HTML doesn't have .menu-toggle or .nav-menu currently)
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', function() {
-            menuToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+        // Countdown Timer Functionality
+        function updateCountdown() {
+            const countdownElement = document.querySelector('.countdown-timer');
+            if (!countdownElement) return;
+            
+            // Set target date (example: 2 days, 3 hours, 43 minutes from now)
+            const targetDate = new Date();
+            targetDate.setHours(targetDate.getHours() + 2);
+            targetDate.setMinutes(targetDate.getMinutes() + 3);
+            targetDate.setSeconds(targetDate.getSeconds() + 43);
+            
+            const now = new Date();
+            const difference = targetDate - now;
+            
+            if (difference <= 0) {
+                countdownElement.textContent = "00 : 00 : 00";
+                return;
+            }
+            
+            const hours = Math.floor(difference / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            countdownElement.textContent = `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+        }
         
-        // Close menu when clicking a link
-        document.querySelectorAll('.nav-item').forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
+        // Initialize countdown
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // Add click event to all CTA buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Thank you for your interest! Please fill out the registration form to join the Alpha Traders Masterclass.');
             });
         });
-    }
-
-    // FAQ toggle functionality - CORRECTED VERSION
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            // Find the parent FAQ item
-            const faqItem = question.closest('.faq-item');
-            // Toggle the active class on the FAQ item
-            faqItem.classList.toggle('active');
+        
+        // Add hover effect to modules
+        document.querySelectorAll('.module').forEach(module => {
+            module.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = '#f9f9f9';
+            });
             
-            // Update the toggle symbol
-            const toggle = question.querySelector('.faq-toggle');
-            if (faqItem.classList.contains('active')) {
-                toggle.textContent = '−'; // Minus sign when expanded
-            } else {
-                toggle.textContent = '+'; // Plus sign when collapsed
-            }
+            module.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = '#fff';
+            });
         });
-    });
-
-    // Testimonial auto-scroll
-    const testimonialsContainer = document.getElementById('testimonialsContainer');
-    if (testimonialsContainer) {
-        let scrollAmount = 0;
-        let scrollInterval;
-        
-        function startAutoScroll() {
-            scrollInterval = setInterval(() => {
-                testimonialsContainer.scrollLeft += 1;
-                if (testimonialsContainer.scrollLeft >= testimonialsContainer.scrollWidth / 2) {
-                    testimonialsContainer.scrollLeft = 0;
-                }
-            }, 30);
-        }
-        
-        function stopAutoScroll() {
-            clearInterval(scrollInterval);
-        }
-        
-        // Start auto-scroll initially
-        startAutoScroll();
-        
-        // Stop auto-scroll on hover
-        testimonialsContainer.addEventListener('mouseenter', stopAutoScroll);
-        testimonialsContainer.addEventListener('mouseleave', startAutoScroll);
-    }
-
-    // Play button functionality
-    const playButton = document.querySelector('.play-button');
-    if (playButton) {
-        playButton.addEventListener('click', () => {
-            alert('Video playback would start here in a real implementation!');
-        });
-    }
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-});
+  
