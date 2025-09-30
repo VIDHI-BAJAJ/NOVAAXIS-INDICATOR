@@ -1,110 +1,36 @@
-        // Add interactivity to the play button
-        document.querySelector('.play-button').addEventListener('click', function() {
-            alert('Video playback would start here in a real implementation.');
-        });
-        
-        // Add hover effect to feature boxes
-        const featureBoxes = document.querySelectorAll('.feature-box');
-        featureBoxes.forEach(box => {
-            box.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = '#333';
-            });
-            box.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = '#000';
-            });
-        });
+// Countdown
+const targetDate = new Date("Oct 1, 2025 20:50:00").getTime();
 
-        // Add hover effect to CTA button
-        document.querySelector('.cta-button').addEventListener('mouseenter', function() {
-            this.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5)';
-        });
-        
-        document.querySelector('.cta-button').addEventListener('mouseleave', function() {
-            this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
-        });
-        
-        // Add click event to CTA button
-        document.querySelector('.cta-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Thank you for your interest! You would be redirected to the registration page in a real implementation.');
-        });
-        
-        // Add animation to check icons on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkIcons = document.querySelectorAll('.check-icon');
-            checkIcons.forEach((icon, index) => {
-                setTimeout(() => {
-                    icon.style.transform = 'scale(1.2)';
-                    setTimeout(() => {
-                        icon.style.transform = 'scale(1)';
-                    }, 200);
-                }, index * 100);
-            });
-        });
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
 
-        // Add functionality to FAQ items
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', function() {
-                const faqItem = this.closest('.faq-item');
-                const answer = faqItem.querySelector('.faq-answer');
-                const icon = this.querySelector('.faq-icon');
-                
-                // Toggle current answer
-                answer.classList.toggle('show');
-                if (answer.classList.contains('show')) {
-                    icon.textContent = '−';
-                } else {
-                    icon.textContent = '+';
-                }
-            });
-        });
-        
-        // Add hover effect to FAQ items
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px)';
-                this.style.boxShadow = '0 6px 15px rgba(0,0,0,0.1)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = 'none';
-            });
-        });
-        
-        // Smooth scroll to top when clicking down arrow
-        document.querySelector('.down-arrow').addEventListener('click', function() {
-            window.scrollTo({
-                top: document.querySelector('.faq-container').offsetTop - 100,
-                behavior: 'smooth'
-            });
-        });
+  if (distance <= 0) {
+    document.getElementById("hours").innerText = "00";
+    document.getElementById("minutes").innerText = "00";
+    document.getElementById("seconds").innerText = "00";
+    clearInterval(timer);
+    return;
+  }
 
+  const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+  const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+  const seconds = Math.floor((distance % (1000*60)) / 1000);
 
-                // Add hover effect to testimonials
-        document.querySelectorAll('.testimonial-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px)';
-                this.style.boxShadow = '0 6px 15px rgba(0,0,0,0.1)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.05)';
-            });
-        });
-        
-        // Highlight animation on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const highlights = document.querySelectorAll('.highlight');
-            highlights.forEach((hl, index) => {
-                hl.style.opacity = '0';
-                hl.style.transform = 'scale(0.9)';
-                hl.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                
-                setTimeout(() => {
-                    hl.style.opacity = '1';
-                    hl.style.transform = 'scale(1)';
-                }, index * 50);
-            });
-        });
+  document.getElementById("hours").innerText = String(hours).padStart(2,'0');
+  document.getElementById("minutes").innerText = String(minutes).padStart(2,'0');
+  document.getElementById("seconds").innerText = String(seconds).padStart(2,'0');
+}
+
+const timer = setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// FAQ Toggle
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => {
+    const answer = q.nextElementSibling;
+    const icon = q.querySelector('.faq-icon');
+    answer.classList.toggle('show');
+    icon.textContent = answer.classList.contains('show') ? '−' : '+';
+  });
+});
