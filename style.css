@@ -43,9 +43,10 @@ body {
         }
         
         .sub-header {
-            font-size: 1.2rem;
+            font-size: 4rem;
             margin: 20px 0;
             text-align: center;
+            color: #fff;
         }
         
         .main-content {
@@ -194,7 +195,6 @@ body {
             border-radius: 5px;
             display: flex;
             align-items: center;
-            justify-content: center;
             text-align: center;
             font-weight: bold;
         }
@@ -202,6 +202,7 @@ body {
         .feature-icon {
             font-size: 1.5rem;
             margin-right: 10px;
+            color: #fff;
         }
         
         .instructor-bio {
@@ -243,7 +244,8 @@ body {
             justify-content: space-between;
             gap: 20px;
             margin-bottom: 30px;
-            padding: 0px 330px;
+            padding: 0px 200px;
+            border-bottom: 2px solid #666;
         }
         
         .feature-column {
@@ -270,6 +272,7 @@ body {
         
         .feature-text strong {
             color: #fff;
+            text-decoration: underline;
         }
         
         .feature-text span {
@@ -485,16 +488,16 @@ body {
     color: #417505;
 }
 
-.sub-header {
+.sub-header1 {
     text-align: center;
     font-size: 1rem;
     margin-bottom: 30px;
-    color: #333;
+    color: #000;
 }
 
 .bonus-image {
-    width: 100%;
-    max-width: 600px;
+    width: 150%;
+    max-width: 800px;
     margin: 20px auto;
     display: block;
 }
@@ -875,6 +878,7 @@ body {
     font-weight: normal;
 }
 
+
 .targetcta-button {
     display: block;
     width: 80%;
@@ -1101,8 +1105,7 @@ body {
 }
 
 .section {
-    margin: 40px 0;
-    padding: 20px;
+    margin: 10px 0;
 }
 
 p {
@@ -1120,12 +1123,6 @@ li {
     padding-left: 25px;
 }
 
-li::before {
-    content: "✅";
-    position: absolute;
-    left: 0;
-    top: 0;
-}
 
 .highlight {
     font-weight: bold;
